@@ -3,27 +3,15 @@ package league
 import (
 	"context"
 	"fmt"
+	"net/http"
 	"strings"
 )
 
-type Service struct {
-	compStore   CompetitionStore
-	reportStore ReportStore
+func (r *Server) Report(resp http.ResponseWriter, req *http.Request) {
+	// TODO
 }
 
-func NewService(compStore CompetitionStore, reportStore ReportStore) (*Service, error) {
-	return &Service{
-		compStore:   compStore,
-		reportStore: reportStore,
-	}, nil
-}
-
-var (
-	ErrInvalidParams = fmt.Errorf("invalid params")
-	ErrInternal      = fmt.Errorf("internal error")
-)
-
-func (r *Service) Report(ctx context.Context, ID string, matches []*Match) error {
+func (r *Server) report(ctx context.Context, ID string, matches []*Match) error {
 	competition, err := r.validate(ctx, ID, matches)
 	if err != nil {
 		return err
@@ -33,7 +21,7 @@ func (r *Service) Report(ctx context.Context, ID string, matches []*Match) error
 
 }
 
-func (r *Service) validate(ctx context.Context, ID string, matches []*Match) (*Competition, error) {
+func (r *Server) validate(ctx context.Context, ID string, matches []*Match) (*Competition, error) {
 	// Valid if:
 	// Has ID
 	// All competitor belongs to the same Competition

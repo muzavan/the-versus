@@ -2,20 +2,20 @@ package league
 
 type Competitor struct {
 	// Name is the ID of Competitor, so should be unique
-	Name string
+	Name string `json:"name,omitempty"`
 	// DisplayName is the name that shown to any FE
 	// Name is basically DisplayName.toLowerCase()
-	DisplayName   string
-	Metadata      map[string]string
-	CompetitionID string
+	DisplayName   string            `json:"display_name,omitempty"`
+	Metadata      map[string]string `json:"metadata,omitempty"`
+	CompetitionID string            `json:"competition_id,omitempty"`
 }
 
 type Competition struct {
-	ID          string
-	Name        string
-	Description string
-	Metadata    map[string]string
-	Competitors []Competitor
+	ID          string            `json:"id,omitempty"`
+	Name        string            `json:"name,omitempty"`
+	Description string            `json:"description,omitempty"`
+	Metadata    map[string]string `json:"metadata,omitempty"`
+	Competitors []Competitor      `json:"competitors,omitempty"`
 }
 
 // GetMatches return all matches
@@ -55,7 +55,7 @@ const (
 // Match is a representation of A vs B
 // To simplify, A.Name always <= B.Name
 type Match struct {
-	A      *Competitor
-	B      *Competitor
-	Result MatchResult
+	A      *Competitor `json:"a,omitempty"`
+	B      *Competitor `json:"b,omitempty"`
+	Result MatchResult `json:"result"`
 }
